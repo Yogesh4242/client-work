@@ -1,19 +1,24 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ContactSection = () => {
   const sectionRef = useRef(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
 
   useEffect(() => {
-    // Delay GSAP initialization to ensure DOM is ready
     const timer = setTimeout(() => {
       const ctx = gsap.context(() => {
-        // Ensure elements are visible initially
         gsap.set(['.contact-content', '.contact-card'], { 
           opacity: 1, 
           y: 0,
@@ -54,6 +59,29 @@ const ContactSection = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission here
+    console.log('Form submitted:', formData);
+    // You can add your form submission logic here
+    alert('Thank you for your message! We will get back to you soon.');
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      message: ''
+    });
+    setIsFormOpen(false);
+  };
+
   return (
     <section id="contact" ref={sectionRef} className="section-padding bg-gradient-dark">
       <div className="container mx-auto px-4">
@@ -73,7 +101,7 @@ const ContactSection = () => {
             </div>
             <h3 className="text-xl font-semibold mb-2 text-foreground">Phone</h3>
             <a 
-              href="tel:‪+27123456789‬" 
+              href="tel:+91930384910" 
               className="text-foreground hover:text-primary transition-colors"
             >
               +91 930384910
@@ -86,7 +114,7 @@ const ContactSection = () => {
             </div>
             <h3 className="text-xl font-semibold mb-2 text-foreground">Email</h3>
             <a 
-              href="mailto:info@msjtraders.co.za" 
+              href="mailto:contact@msjtraders.com" 
               className="text-foreground hover:text-primary transition-colors"
             >
               contact@msjtraders.com
@@ -99,20 +127,117 @@ const ContactSection = () => {
             </div>
             <h3 className="text-xl font-semibold mb-2 text-foreground">Location</h3>
             <p className="text-foreground">
-              India,chennai
+              India, Chennai
             </p>
           </div>
         </div>
 
         <div className="text-center">
           <Button 
+            onClick={() => setIsFormOpen(true)}
             size="lg"
-            variant="hero"
-            className="hover:scale-105 font-semibold px-8 py-6 text-lg bg-gray-800 hover:bg-primary text-white border border-gray-600 hover:border-primary transition-all duration-300 shadow-lg"
+            className="hover:scale-105 font-semibold px-8 py-6 text-lg bg-gradient-to-r from-orange-500 to-yellow-500 text-white border-0 hover:from-orange-600 hover:to-yellow-600 transition-all duration-300 shadow-lg"
           >
             Get in touch
           </Button>
         </div>
+
+        {/* Contact Form Modal */}
+        {isFormOpen && (
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+            onClick={() => setIsFormOpen(false)}
+          >
+            <div 
+              className="bg-card border border-border rounded-xl p-6 md:p-8 max-w-md w-full mx-4 shadow-2xl relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setIsFormOpen(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-primary transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              <h3 className="text-2xl font-bold mb-6 text-gradient-gold">
+                Contact Us
+              </h3>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                    Full Name 
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-3 py-2 bg-background border border-border rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:border-primary transition-colors"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                    Email Address 
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-3 py-2 bg-background border border-border rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:border-primary transition-colors"
+                    placeholder="Enter your email"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 bg-background border border-border rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:border-primary transition-colors"
+                    placeholder="Enter your phone number"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                    Message 
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows="4"
+                    className="w-full px-3 py-2 bg-background border border-border rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:border-primary transition-colors resize-none"
+                    placeholder="Tell us about your project..."
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full hover:scale-105 font-semibold py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white border-0 hover:from-orange-600 hover:to-yellow-600 transition-all duration-300"
+                >
+                  Send Message
+                </Button>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

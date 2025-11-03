@@ -1,21 +1,62 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Building2 } from 'lucide-react';
+import { Building2, X, MapPin, Calendar, Award } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ClientsSection = () => {
   const sectionRef = useRef(null);
   const topClientsRef = useRef(null);
+  const [selectedClient, setSelectedClient] = useState(null);
 
-  // Top featured clients
+  // Top featured clients with detailed information
   const topClients = [
-    { name: 'Aveng Group', color: 'from-blue-500 to-blue-600' },
-    { name: 'Murray & Roberts', color: 'from-green-500 to-green-600' },
-    { name: 'WBHO Construction', color: 'from-red-500 to-red-600' },
-    { name: 'Stefanutti Stocks', color: 'from-purple-500 to-purple-600' },
-    { name: 'Group Five', color: 'from-orange-500 to-orange-600' },
+    { 
+      name: 'Aveng Group', 
+      color: 'from-blue-500 to-blue-600',
+      description: 'A leading infrastructure and resources group with operations across Africa, Australia, and Southeast Asia.',
+      projects: ['Mooikloof Mega City', 'Gautrain Rapid Rail', 'Medupi Power Station'],
+      location: 'Johannesburg, South Africa',
+      since: 2000,
+      specialization: 'Large-scale Infrastructure & Mining'
+    },
+    { 
+      name: 'Murray & Roberts', 
+      color: 'from-green-500 to-green-600',
+      description: 'A multinational engineering and construction company with expertise in underground mining, oil and gas, and infrastructure.',
+      projects: ['Bokpoort CSP Plant', 'Gauteng Freeway Improvement', 'Sasol Mining Operations'],
+      location: 'Johannesburg, South Africa',
+      since: 1902,
+      specialization: 'Engineering & Construction'
+    },
+    { 
+      name: 'WBHO Construction', 
+      color: 'from-red-500 to-red-600',
+      description: 'One of the largest construction companies in South Africa with significant international presence in Australia and UK.',
+      projects: ['Moses Mabhida Stadium', 'Gateway Theatre of Shopping', 'Pearl Qatar'],
+      location: 'Johannesburg, South Africa',
+      since: 1970,
+      specialization: 'Building & Civil Engineering'
+    },
+    { 
+      name: 'Stefanutti Stocks', 
+      color: 'from-purple-500 to-purple-600',
+      description: 'A multi-disciplinary construction company offering services across building, civil engineering, and roads earthworks.',
+      projects: ['King Shaka International Airport', 'Menlyn Maine Precinct', 'Durban Container Terminal'],
+      location: 'Johannesburg, South Africa',
+      since: 1976,
+      specialization: 'Multi-disciplinary Construction'
+    },
+    { 
+      name: 'Group Five', 
+      color: 'from-orange-500 to-orange-600',
+      description: 'A diversified construction, materials, and infrastructure investments group with operations across Africa.',
+      projects: ['Kusile Power Station', 'Nelson Mandela Bridge', 'Mozal Aluminium Smelter'],
+      location: 'Johannesburg, South Africa',
+      since: 1974,
+      specialization: 'Construction & Infrastructure'
+    },
   ];
 
   // Other clients grid
@@ -75,22 +116,33 @@ const ClientsSection = () => {
     return () => ctx.revert();
   }, []);
 
+  // Close popup when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectedClient && !event.target.closest('.popup-content')) {
+        setSelectedClient(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [selectedClient]);
+
   return (
-    <section id="clients" ref={sectionRef} className="section-padding bg-background">
+    <section id="clients" ref={sectionRef} className="section-padding bg-background relative">
       <div className="container mx-auto px-4">
         {/* Section Title */}
         <h2 className="clients-title text-4xl md:text-5xl font-bold text-center mb-4 text-gradient-gold">
-          Our Trusted Clients
+          Our Top Clients
         </h2>
         <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-          Partnering with South Africa's leading construction and development companies
+          Working with India's leading construction and development companies
         </p>
 
-        {/* Top Featured Clients */}
+    {/* Top Featured Clients */}
         <div className="mb-20">
-          <h3 className="text-2xl font-semibold text-center mb-12 text-foreground">
-            Featured Partners
-          </h3>
+         {/* this is an empty div for allingment mb-20*/}
+          
           <div
             ref={topClientsRef}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl mx-auto"
@@ -99,6 +151,7 @@ const ClientsSection = () => {
               <div
                 key={client.name}
                 className="top-client-card group"
+                onClick={() => setSelectedClient(client)}
               >
                 <div className="relative bg-card rounded-lg p-8 border-2 border-border hover:border-primary transition-all duration-300 hover-glow cursor-pointer h-full flex flex-col items-center justify-center text-center">
                   <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${client.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
@@ -107,11 +160,15 @@ const ClientsSection = () => {
                   <h4 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                     {client.name}
                   </h4>
+                  <p className="text-sm text-muted-foreground mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Click for details
+                  </p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
+          </div>
+       
 
         {/* Other Clients Grid */}
         <div>
@@ -124,16 +181,115 @@ const ClientsSection = () => {
                 key={client}
                 className="other-client-card group cursor-pointer"
               >
-                <div className="bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border hover:border-primary hover:bg-card transition-all duration-300 h-full flex items-center justify-center text-center hover:shadow-gold">
-                  <p className="text-sm font-medium text-foreground/80 group-hover:text-primary transition-colors">
-                    {client}
-                  </p>
-                </div>
+              <div className="bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border hover:border-primary hover:bg-card transition-all duration-300 h-full flex items-center justify-center text-center hover:shadow-lg hover:shadow-primary/20 hover:scale-105">
+                <p className="text-sm font-medium text-foreground/80 group-hover:text-primary transition-colors">
+                  {client}
+                </p>
+              </div>
               </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Popup Modal */}
+      {selectedClient && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="popup-content bg-card border-2 border-primary rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in fade-in-zoom-in">
+            {/* Header */}
+            <div className={`bg-gradient-to-r ${selectedClient.color} p-6 rounded-t-lg`}>
+              <div className="flex justify-between items-start">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <Building2 className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">{selectedClient.name}</h3>
+                    <p className="text-white/90">{selectedClient.specialization}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setSelectedClient(null)}
+                  className="text-white hover:bg-white/20 p-2 rounded-full transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+
+            {/* Body */}
+            <div className="p-6 space-y-6">
+              {/* Description */}
+              <div>
+                <h4 className="text-lg font-semibold text-foreground mb-3">About</h4>
+                <p className="text-muted-foreground leading-relaxed">
+                  {selectedClient.description}
+                </p>
+              </div>
+
+              {/* Company Details */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center space-x-3">
+                  <MapPin className="w-5 h-5 text-primary" />
+                  <div>
+                    <p className="text-sm text-muted-foreground">Location</p>
+                    <p className="font-medium text-foreground">{selectedClient.location}</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Calendar className="w-5 h-5 text-primary" />
+                  <div>
+                    <p className="text-sm text-muted-foreground">Partnership Since</p>
+                    <p className="font-medium text-foreground">{selectedClient.since}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Notable Projects */}
+              <div>
+                <div className="flex items-center space-x-2 mb-3">
+                  <Award className="w-5 h-5 text-primary" />
+                  <h4 className="text-lg font-semibold text-foreground">Notable Projects</h4>
+                </div>
+                <ul className="space-y-2">
+                  {selectedClient.projects.map((project, index) => (
+                    <li key={index} className="flex items-start space-x-3">
+                      <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${selectedClient.color} mt-2 flex-shrink-0`} />
+                      <span className="text-foreground/90">{project}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Partnership Highlights */}
+              <div className="bg-muted/50 rounded-lg p-4">
+                <h4 className="font-semibold text-foreground mb-2">Partnership Highlights</h4>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Long-term strategic partnership</li>
+                  <li>• Multiple successful project collaborations</li>
+                  <li>• Industry-leading safety standards</li>
+                  <li>• Innovative construction solutions</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="border-t border-border p-4 bg-muted/20">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">
+                  Trusted partner for {new Date().getFullYear() - selectedClient.since} years
+                </span>
+                <button
+                  onClick={() => setSelectedClient(null)}
+                  className="bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
