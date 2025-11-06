@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const AboutSection = () => {
   const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -19,6 +20,7 @@ const AboutSection = () => {
           start: 'top 80%',
           end: 'bottom 20%',
           toggleActions: 'play none none reverse',
+          onEnter: () => setIsVisible(true),
         },
       });
     }, sectionRef);
@@ -26,12 +28,41 @@ const AboutSection = () => {
     return () => ctx.revert();
   }, []);
 
+  // Counter components
+  const Counter = ({ end, suffix, duration = 2 }) => {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+      if (isVisible) {
+        let start = 0;
+        const increment = end / (duration * 60); // 60fps
+        const timer = setInterval(() => {
+          start += increment;
+          if (start >= end) {
+            setCount(end);
+            clearInterval(timer);
+          } else {
+            setCount(Math.floor(start));
+          }
+        }, 1000 / 60); // 60fps
+
+        return () => clearInterval(timer);
+      }
+    }, [isVisible, end, duration]);
+
+    return (
+      <>
+        {count}
+        <span className="text-orange-400 ml-1">{suffix}</span>
+      </>
+    );
+  };
+
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="section-padding bg-gradient-dark relative overflow-hidden"
-    >
+      className="pt-20 pb-10 md:pt-24 md:pb-12 lg:pt-32 lg:pb-16 bg-gradient-dark relative overflow-hidden"    >
       <div className="container mx-auto px-4">
         <div className="about-content max-w-4xl mx-auto text-center">
           {/* Header */}
@@ -57,7 +88,7 @@ const AboutSection = () => {
             </p>
             
             <p className="text-sm md:text-base lg:text-lg text-left md:text-center">
-              We are committed to delivering the <span className="text-primary font-semibold">best quality services</span> 
+              We are committed to delivering the <span className="text-primary font-semibold">best quality services </span> 
               with exceptional speed and efficiency, ensuring every project is completed within the shortest possible timeframe 
               without compromising on excellence.
             </p>
@@ -81,26 +112,32 @@ const AboutSection = () => {
           </div>
 
           {/* Enhanced Stats Section - Non-scrolling Grid Layout */}
-          <div className="mt-8 md:mt-12 lg:mt-16">
-            {/* Desktop Grid - 3 cards in one row (unchanged) */}
+          <div className="mt-8 md:mt-12 lg:mt-16 pt-5">
+            {/* Desktop Grid - 3 cards in one row */}
             <div className="hidden md:grid md:grid-cols-3 gap-6 lg:gap-8">
               <div className="bg-card/50 backdrop-blur-sm p-6 lg:p-8 rounded-xl border border-border hover:border-orange-500 transition-all duration-300 hover:scale-105 group relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <h3 className="text-4xl lg:text-5xl font-bold text-primary mb-3 relative z-10 group-hover:scale-110 transition-transform duration-300">35+</h3>
+                <h3 className="text-4xl lg:text-5xl font-bold text-primary mb-3 relative z-10 group-hover:scale-110 transition-transform duration-300">
+                  <Counter end={35} suffix="+" duration={2} />
+                </h3>
                 <p className="text-muted-foreground text-base relative z-10 font-semibold">Years of Experience</p>
                 <p className="text-orange-400 text-sm mt-2 relative z-10">Since 1987</p>
               </div>
               
               <div className="bg-card/50 backdrop-blur-sm p-6 lg:p-8 rounded-xl border border-border hover:border-yellow-500 transition-all duration-300 hover:scale-105 group relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <h3 className="text-4xl lg:text-5xl font-bold text-primary mb-3 relative z-10 group-hover:scale-110 transition-transform duration-300">1000+</h3>
+                <h3 className="text-4xl lg:text-5xl font-bold text-primary mb-3 relative z-10 group-hover:scale-110 transition-transform duration-300">
+                  <Counter end={1000} suffix="+" duration={2.5} />
+                </h3>
                 <p className="text-muted-foreground text-base relative z-10 font-semibold">Projects Completed</p>
                 <p className="text-yellow-400 text-sm mt-2 relative z-10">Across Chennai</p>
               </div>
               
               <div className="bg-card/50 backdrop-blur-sm p-6 lg:p-8 rounded-xl border border-border hover:border-orange-500 transition-all duration-300 hover:scale-105 group relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <h3 className="text-4xl lg:text-5xl font-bold text-primary mb-3 relative z-10 group-hover:scale-110 transition-transform duration-300">100%</h3>
+                <h3 className="text-4xl lg:text-5xl font-bold text-primary mb-3 relative z-10 group-hover:scale-110 transition-transform duration-300">
+                  <Counter end={100} suffix="%" duration={2} />
+                </h3>
                 <p className="text-muted-foreground text-base relative z-10 font-semibold">Quality Commitment</p>
                 <p className="text-orange-400 text-sm mt-2 relative z-10">Best in Class</p>
               </div>
@@ -112,14 +149,18 @@ const AboutSection = () => {
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="bg-card/50 backdrop-blur-sm p-4 rounded-xl border border-orange-500/50 transition-all duration-300 group relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-yellow-500/10 opacity-100 transition-opacity duration-300"></div>
-                  <h3 className="text-3xl font-bold text-primary mb-2 relative z-10">35+</h3>
-                  <p className="text-muted-foreground text-xs relative z-10 font-semibold">Years Experience</p>
-                  <p className="text-orange-400 text-xs mt-1 relative z-10">Since 1987</p>
+                  <h3 className="text-3xl font-bold text-primary mb-2 relative z-10">
+                    <Counter end={100} suffix="%" duration={1.5} />
+                  </h3>
+                  <p className="text-muted-foreground text-xs relative z-10 font-semibold">Quality Commitment</p>
+                  <p className="text-orange-400 text-xs mt-1 relative z-10">Best in Class</p>
                 </div>
                 
                 <div className="bg-card/50 backdrop-blur-sm p-4 rounded-xl border border-yellow-500/50 transition-all duration-300 group relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 opacity-100 transition-opacity duration-300"></div>
-                  <h3 className="text-3xl font-bold text-primary mb-2 relative z-10">1000+</h3>
+                  <h3 className="text-3xl font-bold text-primary mb-2 relative z-10">
+                    <Counter end={1000} suffix="+" duration={2} />
+                  </h3>
                   <p className="text-muted-foreground text-xs relative z-10 font-semibold">Projects Done</p>
                   <p className="text-yellow-400 text-xs mt-1 relative z-10">Across Chennai</p>
                 </div>
@@ -129,54 +170,19 @@ const AboutSection = () => {
               <div className="flex justify-center">
                 <div className="bg-card/50 backdrop-blur-sm p-4 rounded-xl border border-orange-500/50 transition-all duration-300 group relative overflow-hidden w-full max-w-[calc(50%-0.5rem)]">
                   <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-yellow-500/10 opacity-100 transition-opacity duration-300"></div>
-                  <h3 className="text-3xl font-bold text-primary mb-2 relative z-10">100%</h3>
-                  <p className="text-muted-foreground text-xs relative z-10 font-semibold">Quality Commitment</p>
-                  <p className="text-orange-400 text-xs mt-1 relative z-10">Best in Class</p>
+                  <h3 className="text-3xl font-bold text-primary mb-2 relative z-10">
+                    <Counter end={35} suffix="+" duration={1.5} />
+                  </h3>
+                  <p className="text-muted-foreground text-xs relative z-10 font-semibold">Years Experience</p>
+                  <p className="text-orange-400 text-xs mt-1 relative z-10">Since 1987</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Our Quality Section - Mobile Optimized */}
-          <div className="mt-8 md:mt-12">
-            <div className="bg-gradient-to-r from-orange-500/10 to-yellow-500/10 border border-orange-500/20 rounded-xl md:rounded-2xl backdrop-blur-sm overflow-hidden">
-              {/* Header with Background */}
-              <div className="bg-gradient-to-r from-orange-500/20 to-yellow-500/20 px-4 py-3 md:px-6 md:py-4 border-b border-orange-500/30">
-                <h4 className="text-lg md:text-2xl font-bold text-white text-left">Our Quality</h4>
-              </div>
-              
-              {/* Content */}
-              <div className="p-4 md:p-6 lg:p-8">
-                <p className="text-foreground/90 text-sm md:text-base lg:text-lg leading-relaxed text-left md:text-center">
-                  We are renowned for completing demolition jobs more quickly and cost-effectively than our competitors. 
-                  We have got high quality equipments for Dismantling and Demolitions, ensuring superior results 
-                  with unmatched efficiency and precision.
-                </p>
-                
-                {/* Quality Highlights for Mobile */}
-                <div className="mt-4 md:mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 md:hidden">
-                  <div className="flex items-center space-x-2 text-sm text-orange-300">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                    <span>Quick Project Completion</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm text-yellow-300">
-                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                    <span>Cost-Effective Solutions</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm text-orange-300">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                    <span>Advanced Equipment</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm text-yellow-300">
-                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                    <span>Superior Results</span>
-                  </div>
-                </div>
-              </div>
+
             </div>
-          </div>
-        </div>
-      </div>
+          </div>     
     </section>
   );
 };
