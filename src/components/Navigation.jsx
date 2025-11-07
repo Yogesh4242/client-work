@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 
 /* 🔹 Separate Desktop Nav Links */
 const DesktopLinks = ({ links, scrollToSection }) => (
@@ -35,10 +37,10 @@ const DesktopLinks = ({ links, scrollToSection }) => (
 
 /* 🔹 Separate Mobile Nav Links */
 const MobileLinks = ({ links, scrollToSection, closeMenu }) => (
-  <div className="flex flex-col items-center justify-center space-y-6 mt-12">
-    {links.map((link) =>
+  <div className="flex flex-col items-start justify-start space-y-4 mt-20 px-8">
+    {links.map((link, index) =>
       link.href.startsWith("#") ? (
-        <a
+        <motion.a
           key={link.href}
           href={link.href}
           onClick={(e) => {
@@ -46,19 +48,30 @@ const MobileLinks = ({ links, scrollToSection, closeMenu }) => (
             scrollToSection(link.href);
             closeMenu();
           }}
-          className="text-gray-300 hover:text-orange-500 text-lg font-medium transition-colors duration-300"
+          className="text-gray-300 hover:text-orange-500 text-lg font-medium transition-colors duration-300 block w-full"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: index * 0.06, type: "spring", stiffness: 120, damping: 14 }}
+          whileHover={{ x: 8, color: "#f97316" }}
         >
           {link.label}
-        </a>
+        </motion.a>
       ) : (
-        <Link
+        <motion.div
           key={link.href}
-          to={link.href}
-          onClick={closeMenu}
-          className="text-gray-300 hover:text-orange-500 text-lg font-medium transition-colors duration-300"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: index * 0.06, type: "spring", stiffness: 120, damping: 14 }}
+          whileHover={{ x: 8 }}
         >
-          {link.label}
-        </Link>
+          <Link
+            to={link.href}
+            onClick={closeMenu}
+            className="text-gray-300 hover:text-orange-500 text-lg font-medium transition-colors duration-300"
+          >
+            {link.label}
+          </Link>
+        </motion.div>
       )
     )}
   </div>
@@ -91,14 +104,25 @@ const MobileNav = ({ links, scrollToSection, isScrolled }) => {
   return (
     <>
       {/* Header Bar (only visible on mobile) */}
-      <div
+      <motion.div
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 md:hidden ${
           isScrolled
             ? "bg-background/80 backdrop-blur-md shadow-lg"
             : "bg-transparent"
         }`}
+        animate={{
+          backdropFilter: isOpen ? "blur(8px)" : "blur(0px)",
+          backgroundColor: isOpen ? "rgba(0, 0, 0, 0.4)" : "rgba(0, 0, 0, 0)",
+        }}
+        transition={{ duration: 0.3 }}
       >
-        <div className="flex justify-between items-center px-6 py-4">
+        <motion.div
+          className="flex justify-between items-center px-6 py-4"
+          animate={{
+            opacity: isOpen ? 0.6 : 1,
+          }}
+          transition={{ duration: 0.3 }}
+        >
           <Link
             to="/"
             onClick={() => {
@@ -109,47 +133,93 @@ const MobileNav = ({ links, scrollToSection, isScrolled }) => {
           >
             MSJ TRADERS
           </Link>
-          <button
+          <motion.button
             onClick={() => setIsOpen(true)}
             className="text-gray-300 hover:text-orange-500 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
             <Menu size={28} />
-          </button>
-        </div>
-      </div>
+          </motion.button>
+        </motion.div>
+      </motion.div>
 
-      {/* Overlay */}
-      <div
-        className={`fixed inset-0 bg-black/70 backdrop-blur-sm z-40 transition-opacity duration-300 ${
-          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
-        onClick={() => setIsOpen(false)}
-      ></div>
+      {/* Overlay + Animated Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Blur background overlay */}
+            <motion.div
+              className="fixed inset-0 bg-black/50 backdrop-blur-lg z-40"
+              initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+              animate={{ opacity: 1, backdropFilter: "blur(12px)" }}
+              exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              onClick={() => setIsOpen(false)}
+            ></motion.div>
 
-      {/* Slide Menu */}
-      <div
-        className={`fixed top-0 right-0 h-full w-3/4 sm:w-1/2 bg-[#111] shadow-2xl z-50 transform transition-transform duration-500 ease-in-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="flex justify-between items-center px-6 py-5 border-b border-gray-700">
-          <h2 className="text-xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
-            Menu
-          </h2>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="text-gray-300 hover:text-orange-500 transition-colors"
-          >
-            <X size={28} />
-          </button>
-        </div>
+            {/* Slide-in menu with glass effect */}
+            <motion.div
+              className="fixed top-0 right-0 h-full w-3/4 sm:w-1/2 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-2xl border-l border-white/20 shadow-2xl z-50"
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: "100%", opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1], type: "spring", stiffness: 100, damping: 20 }}
+            >
+              {/* Animated gradient line at top */}
+              <motion.div
+                className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-yellow-500/0 via-orange-500 to-yellow-500/0"
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                transition={{ delay: 0.1, duration: 0.4, ease: "easeOut" }}
+              ></motion.div>
 
-        <MobileLinks
-          links={links}
-          scrollToSection={scrollToSection}
-          closeMenu={() => setIsOpen(false)}
-        />
-      </div>
+              {/* Glowing accent background */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.15, duration: 0.5 }}
+              ></motion.div>
+
+              <div className="relative z-10 flex justify-between items-center px-6 py-5 border-b border-white/10">
+                <motion.h2
+                  className="text-xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1, duration: 0.3 }}
+                >
+                  Menu
+                </motion.h2>
+                <motion.button
+                  onClick={() => setIsOpen(false)}
+                  className="text-gray-300 hover:text-orange-500 transition-colors"
+                  whileHover={{ rotate: 90, scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                >
+                  <X size={28} />
+                </motion.button>
+              </div>
+
+              <div className="relative z-10">
+                <MobileLinks
+                  links={links}
+                  scrollToSection={scrollToSection}
+                  closeMenu={() => setIsOpen(false)}
+                />
+              </div>
+
+              {/* Animated corner glow */}
+              <motion.div
+                className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-orange-500/20 to-transparent rounded-full filter blur-3xl pointer-events-none"
+                animate={{ y: [0, 20, 0], x: [0, 10, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              ></motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 };
