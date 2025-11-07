@@ -97,32 +97,27 @@ const DesktopNav = ({ links, scrollToSection, isScrolled }) => (
   </nav>
 );
 
-/* 🔹 Mobile Navbar */
+/* 🔹 Mobile Navbar (Fixed) */
 const MobileNav = ({ links, scrollToSection, isScrolled }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      {/* Header Bar (only visible on mobile) */}
+      {/* ✅ Header Bar - Always Visible */}
       <motion.div
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 md:hidden ${
-          isScrolled
-            ? "bg-background/80 backdrop-blur-md shadow-lg"
-            : "bg-transparent"
+        className={`fixed top-0 left-0 right-0 z-[60] md:hidden transition-all duration-300 ${
+          isScrolled ? "bg-background/80 backdrop-blur-md shadow-lg" : "bg-transparent"
         }`}
         animate={{
-          backdropFilter: isOpen ? "blur(8px)" : "blur(0px)",
-          backgroundColor: isOpen ? "rgba(0, 0, 0, 0.4)" : "rgba(0, 0, 0, 0)",
+          backgroundColor: isScrolled
+            ? "rgba(0, 0, 0, 0.7)"
+            : isOpen
+            ? "rgba(0, 0, 0, 0.3)"
+            : "rgba(0, 0, 0, 0)",
         }}
         transition={{ duration: 0.3 }}
       >
-        <motion.div
-          className="flex justify-between items-center px-6 py-4"
-          animate={{
-            opacity: isOpen ? 0.6 : 1,
-          }}
-          transition={{ duration: 0.3 }}
-        >
+        <div className="flex justify-between items-center px-6 py-4">
           <Link
             to="/"
             onClick={() => {
@@ -141,48 +136,38 @@ const MobileNav = ({ links, scrollToSection, isScrolled }) => {
           >
             <Menu size={28} />
           </motion.button>
-        </motion.div>
+        </div>
       </motion.div>
 
-      {/* Overlay + Animated Menu */}
+      {/* ✅ Overlay + Animated Menu */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Blur background overlay */}
+            {/* Dark background overlay */}
             <motion.div
-              className="fixed inset-0 bg-black/50 backdrop-blur-lg z-40"
-              initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-              animate={{ opacity: 1, backdropFilter: "blur(12px)" }}
-              exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-lg z-[55]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
               onClick={() => setIsOpen(false)}
             ></motion.div>
 
-            {/* Slide-in menu with glass effect */}
+            {/* Slide-in animated menu */}
             <motion.div
-              className="fixed top-0 right-0 h-full w-3/4 sm:w-1/2 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-2xl border-l border-white/20 shadow-2xl z-50"
+              className="fixed top-0 right-0 h-full w-3/4 sm:w-1/2 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-2xl border-l border-white/20 shadow-2xl z-[70]"
               initial={{ x: "100%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: "100%", opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1], type: "spring", stiffness: 100, damping: 20 }}
+              transition={{
+                duration: 0.35,
+                ease: [0.34, 1.56, 0.64, 1],
+                type: "spring",
+                stiffness: 120,
+                damping: 18,
+              }}
             >
-              {/* Animated gradient line at top */}
-              <motion.div
-                className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-yellow-500/0 via-orange-500 to-yellow-500/0"
-                initial={{ opacity: 0, scaleX: 0 }}
-                animate={{ opacity: 1, scaleX: 1 }}
-                transition={{ delay: 0.1, duration: 0.4, ease: "easeOut" }}
-              ></motion.div>
-
-              {/* Glowing accent background */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent pointer-events-none"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.15, duration: 0.5 }}
-              ></motion.div>
-
-              <div className="relative z-10 flex justify-between items-center px-6 py-5 border-b border-white/10">
+              <div className="flex justify-between items-center px-6 py-5 border-b border-white/10">
                 <motion.h2
                   className="text-xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent"
                   initial={{ opacity: 0, y: -10 }}
@@ -209,13 +194,6 @@ const MobileNav = ({ links, scrollToSection, isScrolled }) => {
                   closeMenu={() => setIsOpen(false)}
                 />
               </div>
-
-              {/* Animated corner glow */}
-              <motion.div
-                className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-orange-500/20 to-transparent rounded-full filter blur-3xl pointer-events-none"
-                animate={{ y: [0, 20, 0], x: [0, 10, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              ></motion.div>
             </motion.div>
           </>
         )}
