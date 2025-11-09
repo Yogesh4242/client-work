@@ -16,6 +16,314 @@ import ujwalacard from './assets/images/clients/ujwalacard.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Separate Body Components for Each Client
+const LNTBody = ({ client }) => (
+  <div className="p-6 space-y-6">
+    {/* L&T Specific Layout */}
+    <div>
+      <div className="bg-gradient-to-r from-blue-900/50 to-blue-800/50 rounded-lg p-4 flex justify-between items-center border border-blue-500/30 shadow-2xl">
+        <h4 className="text-lg font-semibold text-white">Total Area: 2,50,000 Sq.ft</h4>
+        <h4 className="text-lg font-semibold text-white ">📍 Chennai </h4>
+      </div>
+    </div>
+
+    <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-blue-500/20 shadow-2xl">
+      <h4 className="font-semibold text-white mb-3 text-blue-300">Manapakam complex</h4>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h5 className="font-medium text-white mb-2">sq.ft: </h5>
+          <ul className="text-sm text-gray-300 space-y-1">
+
+            <h2>Data for this project is not yet avaliable</h2>
+            <h2>Data for this project is not yet avaliable</h2>            
+            <h2>Data for this project is not yet avaliable</h2>                  
+
+          </ul>
+        </div>
+      
+      </div>
+    </div>
+
+
+
+        <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-blue-500/20 shadow-2xl">
+      <h4 className="font-semibold text-white mb-3 text-blue-300">Siva Nadar School</h4>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h5 className="font-medium text-white mb-2">sq.ft: </h5>
+          <ul className="text-sm text-gray-300 space-y-1">
+
+            <h2>Data for this project is not yet avaliable</h2>
+            <h2>Data for this project is not yet avaliable</h2>                          
+
+          </ul>
+        </div>
+      
+      </div>
+    </div>
+
+    
+  </div>
+);
+
+const TATABody = ({ client }) => (
+  <div className="p-6 space-y-6">
+    {/* TATA Specific Layout */}
+    <div className="grid grid-cols-2 gap-4">
+      <div className="bg-gradient-to-r from-green-900/50 to-green-800/50 rounded-lg p-4 border border-green-500/30 shadow-2xl">
+        <h4 className="text-lg font-semibold text-white text-center">1,50,000 Sq.ft</h4>
+        <p className="text-green-300 text-center text-sm">Commercial Space</p>
+      </div>
+      <div className="bg-gradient-to-r from-green-900/50 to-green-800/50 rounded-lg p-4 border border-green-500/30 shadow-2xl">
+        <h4 className="text-lg font-semibold text-white text-center">Located in Chennai</h4>
+        <p className="text-green-300 text-center text-sm">Main Office</p>
+      </div>
+    </div>
+
+    <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-blue-500/20 shadow-2xl">
+      <h4 className="font-semibold text-white mb-3 text-blue-300">PADAPAI PROJECT</h4>
+      <div className="space-y-3">
+        <div className="bg-blue-900/30 rounded-lg p-4 border border-blue-500/20">
+          <h5 className="font-semibold text-white mb-2 text-green-300">Project Details</h5>
+          <ul className="text-sm text-gray-300 space-y-2">
+            <li>• Demolished an 8 floor building in (PADAPAI)</li>
+            <li>• Square feet: 1,50,000 (B2+8)</li>
+            <li>• Time period: 3 months</li>
+            <li>• Date: ------</li>
+            <li>• Location: Padapai, chennai</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const BNRBody = ({ client }) => (
+  <div className="p-6 space-y-6">
+    {/* BNR Specific Layout */}
+    <div className="bg-gradient-to-r from-red-900/50 to-red-800/50 rounded-lg p-6 border border-red-500/30 shadow-2xl text-center">
+      <h4 className="text-2xl font-bold text-white mb-2">3,20,000 Sq.ft</h4>
+      <p className="text-red-300">Total area designated for demolition under the BNR projects.</p>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Grid 1 - Tirupati Thoda Building */}
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
+        <h4 className="font-semibold text-white mb-3 text-red-300">Tirupati Thoda Building</h4>
+        <ul className="text-sm text-gray-300 space-y-2">
+       <li>• Location: Tirupati</li>
+        </ul>
+      </div>
+
+
+      {/* Grid 5 - Kilpauk Hospital */}
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
+        <h4 className="font-semibold text-white mb-3 text-red-300">Kilpauk Hospital</h4>
+        <ul className="text-sm text-gray-300 space-y-2">
+          
+          <li>• Location: chennai</li>
+        </ul>
+      </div>
+
+
+      {/* Grid 2 - Tirupati Corporation Municipality */}
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
+        <h4 className="font-semibold text-white mb-3 text-red-300">Tirupati Corporation Municipality</h4>
+        <ul className="text-sm text-gray-300 space-y-2">
+         <li>• Location: Tirupathi</li>
+
+        </ul>
+      </div>
+
+
+
+       {/* Grid 4 - Vikas College */}
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
+        <h4 className="font-semibold text-white mb-3 text-red-300">Vikas College</h4>
+        <ul className="text-sm text-gray-300 space-y-2">
+          
+          <li>• Location:  Inamkulathur</li>
+        </ul>
+      </div>
+
+
+      {/* Grid 3 - Anna Rao Circle */}
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
+        <h4 className="font-semibold text-white mb-3 text-red-300">Anna Rao Circle</h4>
+        <ul className="text-sm text-gray-300 space-y-2">
+           <li>• Location: Tirupati</li>
+
+        </ul>
+      </div>
+
+      
+
+      {/* Grid 6 - College Opposite */}
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
+        <h4 className="font-semibold text-white mb-3 text-red-300">College Opposite ---------name--</h4>
+        <ul className="text-sm text-gray-300 space-y-2">
+        
+          <li>• Location: Royapettah</li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Additional 2 Grids - Centered */}
+    <div className="flex justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+        {/* Grid 7 - Madhavaram */}
+        <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
+          <h4 className="font-semibold text-white mb-3 text-red-300">Madhavaram --name--</h4>
+          <ul className="text-sm text-gray-300 space-y-2">
+        
+            <li>• Location: Madhavaram</li>
+          </ul>
+        </div>
+
+        {/* Grid 8 - Kandigai */}
+        <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
+          <h4 className="font-semibold text-white mb-3 text-red-300">Kandigai --name--</h4>
+          <ul className="text-sm text-gray-300 space-y-2">
+          
+            <li>• Location: Kandigai</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+
+const AFCONSBody = ({ client }) => (
+  <div className="p-6 space-y-6">
+    {/* AFCONS Specific Layout */}
+    <div className="bg-gradient-to-r from-purple-900/50 to-purple-800/50 rounded-lg p-4 border border-purple-500/30 shadow-2xl">
+      <div className="flex justify-between items-center">
+        <div>
+          <h4 className="text-lg font-semibold text-white">Project Scale</h4>
+          <p className="text-purple-300">4,50,000 Sq.ft Development</p>
+        </div>
+        <div className="text-right">
+          <h4 className="text-lg font-semibold text-white">Hyderabad</h4>
+          <p className="text-purple-300">Primary Location</p>
+        </div>
+      </div>
+    </div>
+
+    <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-purple-500/20 shadow-2xl">
+      <h4 className="font-semibold text-white mb-4 text-purple-300 text-center">Mega Infrastructure Project</h4>
+      
+      <div className="space-y-4">
+        <div className="text-center">
+          <h5 className="font-medium text-white mb-2">Phase 1: Foundation</h5>
+          <p className="text-gray-300 text-sm">Deep excavation and piling work completed</p>
+        </div>
+        
+        <div className="text-center">
+          <h5 className="font-medium text-white mb-2">Phase 2: Structure</h5>
+          <p className="text-gray-300 text-sm">High-rise construction in progress</p>
+        </div>
+        
+        <div className="text-center">
+          <h5 className="font-medium text-white mb-2">Phase 3: Finishing</h5>
+          <p className="text-gray-300 text-sm">Interior and exterior work scheduled</p>
+        </div>
+      </div>
+    </div>
+
+    <div className="grid grid-cols-3 gap-4 text-center">
+      <div className="bg-purple-900/30 rounded-lg p-3 border border-purple-500/20">
+        <p className="text-white font-bold text-lg">18</p>
+        <p className="text-purple-300 text-xs">Months</p>
+      </div>
+      <div className="bg-purple-900/30 rounded-lg p-3 border border-purple-500/20">
+        <p className="text-white font-bold text-lg">500+</p>
+        <p className="text-purple-300 text-xs">Workers</p>
+      </div>
+      <div className="bg-purple-900/30 rounded-lg p-3 border border-purple-500/20">
+        <p className="text-white font-bold text-lg">95%</p>
+        <p className="text-purple-300 text-xs">On Time</p>
+      </div>
+    </div>
+  </div>
+);
+
+const UJWALABody = ({ client }) => (
+  <div className="p-6 space-y-6">
+    {/* UJWALA Specific Layout */}
+    <div className="bg-gradient-to-r from-orange-900/50 to-orange-800/50 rounded-lg p-4 border border-orange-500/30 shadow-2xl">
+      <h4 className="text-xl font-bold text-white text-center mb-2">Affordable Housing Project</h4>
+      <div className="flex justify-between">
+        <div className="text-center">
+          <p className="text-orange-300 text-sm">Area</p>
+          <p className="text-white font-semibold">1,50,000 Sq.ft</p>
+        </div>
+        <div className="text-center">
+          <p className="text-orange-300 text-sm">Units</p>
+          <p className="text-white font-semibold">200+ Homes</p>
+        </div>
+        <div className="text-center">
+          <p className="text-orange-300 text-sm">Location</p>
+          <p className="text-white font-semibold">Chennai</p>
+        </div>
+      </div>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-orange-500/20 shadow-2xl">
+        <h4 className="font-semibold text-white mb-3 text-orange-300">Community Features</h4>
+        <ul className="text-sm text-gray-300 space-y-2">
+          <li>• Children's play area</li>
+          <li>• Community hall</li>
+          <li>• Green spaces</li>
+          <li>• Rainwater harvesting</li>
+        </ul>
+      </div>
+      
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-orange-500/20 shadow-2xl">
+        <h4 className="font-semibold text-white mb-3 text-orange-300">Amenities</h4>
+        <ul className="text-sm text-gray-300 space-y-2">
+          <li>• 24/7 water supply</li>
+          <li>• Solar street lighting</li>
+          <li>• Waste management</li>
+          <li>• Security systems</li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="bg-orange-900/30 rounded-lg p-4 border border-orange-500/20">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <Calendar className="w-5 h-5 text-orange-400" />
+          <div>
+            <p className="text-sm text-orange-300">Partnership</p>
+            <p className="font-medium text-white">{client.since} - Present</p>
+          </div>
+        </div>
+        <div className="text-right">
+          <p className="text-sm text-orange-300">Social Impact</p>
+          <p className="font-medium text-white">200+ Families</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// Client Body Mapper
+const ClientBody = ({ client }) => {
+  const bodyComponents = {
+    'L&T': LNTBody,
+    'TATA': TATABody,
+    'BNR': BNRBody,
+    'AFCONS': AFCONSBody,
+    'UJWALA': UJWALABody,
+  };
+
+  const BodyComponent = bodyComponents[client.name] || LNTBody;
+  
+  return <BodyComponent client={client} />;
+};
+
 const ClientsSection = () => {
   const sectionRef = useRef(null);
   const topClientsRef = useRef(null);
@@ -142,84 +450,84 @@ const ClientsSection = () => {
   const nextSlide = () => navigateSlide('next');
   const prevSlide = () => navigateSlide('prev');
 
-// Swipe handling
-useEffect(() => {
-  const carousel = carouselRef.current;
-  if (!carousel) return;
+  // Swipe handling
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
 
-  let startX = 0;
-  let currentX = 0;
-  let isSwipingLocal = false;
-  let startTime = 0;
-  let hasMoved = false;
+    let startX = 0;
+    let currentX = 0;
+    let isSwipingLocal = false;
+    let startTime = 0;
+    let hasMoved = false;
 
-  const handleTouchStart = (e) => {
-    startX = e.touches[0].clientX;
-    startTime = Date.now();
-    isSwipingLocal = true;
-    hasMoved = false;
-    setIsSwiping(true);
-  };
+    const handleTouchStart = (e) => {
+      startX = e.touches[0].clientX;
+      startTime = Date.now();
+      isSwipingLocal = true;
+      hasMoved = false;
+      setIsSwiping(true);
+    };
 
-  const handleTouchMove = (e) => {
-    if (!isSwipingLocal) return;
-    currentX = e.touches[0].clientX;
-    const diff = startX - currentX;
-    
-    // Only consider it a swipe if movement is significant
-    if (Math.abs(diff) > 15) {
-      hasMoved = true;
+    const handleTouchMove = (e) => {
+      if (!isSwipingLocal) return;
+      currentX = e.touches[0].clientX;
+      const diff = startX - currentX;
+      
+      // Only consider it a swipe if movement is significant
+      if (Math.abs(diff) > 15) {
+        hasMoved = true;
+        gsap.to(carousel, {
+          x: -diff * 0.3,
+          duration: 0.1,
+          ease: 'power2.out'
+        });
+      }
+    };
+
+    const handleTouchEnd = (e) => {
+      if (!isSwipingLocal) return;
+      
+      const endTime = Date.now();
+      const timeDiff = endTime - startTime;
+      const diff = startX - currentX;
+      const swipeThreshold = 60; // Increased threshold
+      const tapTimeThreshold = 300; // Increased time threshold
+      
+      // Reset position
       gsap.to(carousel, {
-        x: -diff * 0.3,
-        duration: 0.1,
+        x: 0,
+        duration: 0.2,
         ease: 'power2.out'
       });
-    }
-  };
 
-  const handleTouchEnd = (e) => {
-    if (!isSwipingLocal) return;
-    
-    const endTime = Date.now();
-    const timeDiff = endTime - startTime;
-    const diff = startX - currentX;
-    const swipeThreshold = 60; // Increased threshold
-    const tapTimeThreshold = 300; // Increased time threshold
-    
-    // Reset position
-    gsap.to(carousel, {
-      x: 0,
-      duration: 0.2,
-      ease: 'power2.out'
-    });
-
-    // Only navigate if it was a clear swipe gesture
-    if (hasMoved && Math.abs(diff) > swipeThreshold) {
-      if (diff > 0) {
-        nextSlide(); // Swipe left - next
-      } else {
-        prevSlide(); // Swipe right - previous
+      // Only navigate if it was a clear swipe gesture
+      if (hasMoved && Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          nextSlide(); // Swipe left - next
+        } else {
+          prevSlide(); // Swipe right - previous
+        }
+      } 
+      // Otherwise, if it was a quick tap with minimal movement, open details
+      else if (!hasMoved || (timeDiff < tapTimeThreshold && Math.abs(diff) < 30)) {
+        setSelectedClient(topClients[currentSlide]);
       }
-    } 
-    // Otherwise, if it was a quick tap with minimal movement, open details
-    else if (!hasMoved || (timeDiff < tapTimeThreshold && Math.abs(diff) < 30)) {
-      setSelectedClient(topClients[currentSlide]);
-    }
-    
-    isSwipingLocal = false;
-    setIsSwiping(false);
-  };
+      
+      isSwipingLocal = false;
+      setIsSwiping(false);
+    };
 
-  carousel.addEventListener('touchstart', handleTouchStart);
-  carousel.addEventListener('touchmove', handleTouchMove);
-  carousel.addEventListener('touchend', handleTouchEnd);
+    carousel.addEventListener('touchstart', handleTouchStart);
+    carousel.addEventListener('touchmove', handleTouchMove);
+    carousel.addEventListener('touchend', handleTouchEnd);
 
-  return () => {
-    carousel.removeEventListener('touchstart', handleTouchStart);
-    carousel.removeEventListener('touchmove', handleTouchMove);
-    carousel.removeEventListener('touchend', handleTouchEnd);
-  };
-}, [currentSlide, isAnimating]);
+    return () => {
+      carousel.removeEventListener('touchstart', handleTouchStart);
+      carousel.removeEventListener('touchmove', handleTouchMove);
+      carousel.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [currentSlide, isAnimating]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -521,62 +829,15 @@ useEffect(() => {
               </div>
             </div>
 
-            {/* Body */}
-            <div className="p-6 space-y-6">
-              <div>
-                <h4 className="text-lg font-semibold text-foreground mb-3">About</h4>
-                <p className="text-muted-foreground leading-relaxed">
-                  {selectedClient.description}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-center space-x-3">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="font-medium text-foreground">{selectedClient.location}</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Calendar className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Partnership Since</p>
-                    <p className="font-medium text-foreground">{selectedClient.since}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center space-x-2 mb-3">
-                  <Award className="w-5 h-5 text-primary" />
-                  <h4 className="text-lg font-semibold text-foreground">Notable Projects</h4>
-                </div>
-                <ul className="space-y-2">
-                  {selectedClient.projects.map((project, index) => (
-                    <li key={index} className="flex items-start space-x-3">
-                      <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${selectedClient.color} mt-2 flex-shrink-0`} />
-                      <span className="text-foreground/90">{project}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="bg-muted/50 rounded-lg p-4">
-                <h4 className="font-semibold text-foreground mb-2">Partnership Highlights</h4>
-                <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Long-term strategic partnership</li>
-                  <li>• Multiple successful project collaborations</li>
-                  <li>• Industry-leading safety standards</li>
-                  <li>• Innovative construction solutions</li>
-                </ul>
-              </div>
-            </div>
+            {/* Dynamic Body Content */}
+            <ClientBody client={selectedClient} />
 
             <div className="border-t border-border p-4 bg-muted/20">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">
-                  Trusted partner for {new Date().getFullYear() - selectedClient.since} years
+
+------something about working experience with the company ------
+
                 </span>
                 <button
                   onClick={() => setSelectedClient(null)}
