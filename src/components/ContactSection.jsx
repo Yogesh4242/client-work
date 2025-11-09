@@ -1,13 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useState } from 'react';
 import { Phone, Mail, MapPin, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const ContactSection = () => {
-  const sectionRef = useRef(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -15,49 +10,6 @@ const ContactSection = () => {
     phone: '',
     message: ''
   });
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const ctx = gsap.context(() => {
-        gsap.set(['.contact-content', '.contact-card'], { 
-          opacity: 1, 
-          y: 0,
-          immediateRender: false 
-        });
-
-        gsap.from('.contact-content', {
-          opacity: 0,
-          y: 40,
-          duration: 0.8,
-          scrollTrigger: {
-            trigger: '.contact-content',
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-
-        gsap.from('.contact-card', {
-          opacity: 0,
-          y: 30,
-          duration: 0.6,
-          stagger: 0.15,
-          scrollTrigger: {
-            trigger: '.contact-cards',
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-      }, sectionRef);
-
-      return () => {
-        ctx.revert();
-      };
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -83,7 +35,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="section-padding bg-gradient-dark">
+    <section id="contact" className="section-padding bg-gradient-dark">
       <div className="container mx-auto px-4">
         <div className="contact-content max-w-4xl mx-auto text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient-gold">
@@ -131,14 +83,14 @@ const ContactSection = () => {
               Jamaliya,<br />
               Chennai - 600 012
             </p>
-  <a 
-  href="https://maps.google.com/?q=No.57/34, Perambur High Road, Jamaliya, Chennai - 600 012"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="text-primary hover:text-orange-400 transition-colors text-sm mt-2 inline-block"
->
-  View on Google Maps →
-</a>
+            <a 
+              href="https://maps.google.com/?q=No.57/34, Perambur High Road, Jamaliya, Chennai - 600 012"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:text-orange-400 transition-colors text-sm mt-2 inline-block"
+            >
+              View on Google Maps →
+            </a>
           </div>
         </div>
 
@@ -253,4 +205,4 @@ const ContactSection = () => {
   );
 };
 
-export default ContactSection;
+export default ContactSection;

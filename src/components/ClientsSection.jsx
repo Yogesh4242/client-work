@@ -19,7 +19,6 @@ gsap.registerPlugin(ScrollTrigger);
 // Separate Body Components for Each Client
 const LNTBody = ({ client }) => (
   <div className="p-6 space-y-6">
-    {/* L&T Specific Layout */}
     <div>
       <div className="bg-gradient-to-r from-blue-900/50 to-blue-800/50 rounded-lg p-4 flex justify-between items-center border border-blue-500/30 shadow-2xl">
         <h4 className="text-lg font-semibold text-white">Total Area: 2,50,000 Sq.ft</h4>
@@ -33,42 +32,31 @@ const LNTBody = ({ client }) => (
         <div>
           <h5 className="font-medium text-white mb-2">sq.ft: </h5>
           <ul className="text-sm text-gray-300 space-y-1">
-
             <h2>Data for this project is not yet avaliable</h2>
             <h2>Data for this project is not yet avaliable</h2>            
             <h2>Data for this project is not yet avaliable</h2>                  
-
           </ul>
         </div>
-      
       </div>
     </div>
 
-
-
-        <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-blue-500/20 shadow-2xl">
+    <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-blue-500/20 shadow-2xl">
       <h4 className="font-semibold text-white mb-3 text-blue-300">Siva Nadar School</h4>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <h5 className="font-medium text-white mb-2">sq.ft: </h5>
           <ul className="text-sm text-gray-300 space-y-1">
-
             <h2>Data for this project is not yet avaliable</h2>
             <h2>Data for this project is not yet avaliable</h2>                          
-
           </ul>
         </div>
-      
       </div>
     </div>
-
-    
   </div>
 );
 
 const TATABody = ({ client }) => (
   <div className="p-6 space-y-6">
-    {/* TATA Specific Layout */}
     <div className="grid grid-cols-2 gap-4">
       <div className="bg-gradient-to-r from-green-900/50 to-green-800/50 rounded-lg p-4 border border-green-500/30 shadow-2xl">
         <h4 className="text-lg font-semibold text-white text-center">1,50,000 Sq.ft</h4>
@@ -100,91 +88,67 @@ const TATABody = ({ client }) => (
 
 const BNRBody = ({ client }) => (
   <div className="p-6 space-y-6">
-    {/* BNR Specific Layout */}
     <div className="bg-gradient-to-r from-red-900/50 to-red-800/50 rounded-lg p-6 border border-red-500/30 shadow-2xl text-center">
       <h4 className="text-2xl font-bold text-white mb-2">3,20,000 Sq.ft</h4>
       <p className="text-red-300">Total area designated for demolition under the BNR projects.</p>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {/* Grid 1 - Tirupati Thoda Building */}
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
         <h4 className="font-semibold text-white mb-3 text-red-300">Tirupati Thoda Building</h4>
         <ul className="text-sm text-gray-300 space-y-2">
-       <li>• Location: Tirupati</li>
+          <li>• Location: Tirupati</li>
         </ul>
       </div>
 
-
-      {/* Grid 5 - Kilpauk Hospital */}
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
         <h4 className="font-semibold text-white mb-3 text-red-300">Kilpauk Hospital</h4>
         <ul className="text-sm text-gray-300 space-y-2">
-          
           <li>• Location: chennai</li>
         </ul>
       </div>
 
-
-      {/* Grid 2 - Tirupati Corporation Municipality */}
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
         <h4 className="font-semibold text-white mb-3 text-red-300">Tirupati Corporation Municipality</h4>
         <ul className="text-sm text-gray-300 space-y-2">
-         <li>• Location: Tirupathi</li>
-
+          <li>• Location: Tirupathi</li>
         </ul>
       </div>
 
-
-
-       {/* Grid 4 - Vikas College */}
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
         <h4 className="font-semibold text-white mb-3 text-red-300">Vikas College</h4>
         <ul className="text-sm text-gray-300 space-y-2">
-          
-          <li>• Location:  Inamkulathur</li>
+          <li>• Location: Inamkulathur</li>
         </ul>
       </div>
 
-
-      {/* Grid 3 - Anna Rao Circle */}
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
         <h4 className="font-semibold text-white mb-3 text-red-300">Anna Rao Circle</h4>
         <ul className="text-sm text-gray-300 space-y-2">
-           <li>• Location: Tirupati</li>
-
+          <li>• Location: Tirupati</li>
         </ul>
       </div>
 
-      
-
-      {/* Grid 6 - College Opposite */}
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
         <h4 className="font-semibold text-white mb-3 text-red-300">College Opposite ---------name--</h4>
         <ul className="text-sm text-gray-300 space-y-2">
-        
           <li>• Location: Royapettah</li>
         </ul>
       </div>
     </div>
 
-    {/* Additional 2 Grids - Centered */}
     <div className="flex justify-center">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
-        {/* Grid 7 - Madhavaram */}
         <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
           <h4 className="font-semibold text-white mb-3 text-red-300">Madhavaram --name--</h4>
           <ul className="text-sm text-gray-300 space-y-2">
-        
             <li>• Location: Madhavaram</li>
           </ul>
         </div>
 
-        {/* Grid 8 - Kandigai */}
         <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-4 border border-red-500/20 shadow-2xl">
           <h4 className="font-semibold text-white mb-3 text-red-300">Kandigai --name--</h4>
           <ul className="text-sm text-gray-300 space-y-2">
-          
             <li>• Location: Kandigai</li>
           </ul>
         </div>
@@ -193,10 +157,8 @@ const BNRBody = ({ client }) => (
   </div>
 );
 
-
 const AFCONSBody = ({ client }) => (
   <div className="p-6 space-y-6">
-    {/* AFCONS Specific Layout */}
     <div className="bg-gradient-to-r from-purple-900/50 to-purple-800/50 rounded-lg p-4 border border-purple-500/30 shadow-2xl">
       <div className="flex justify-between items-center">
         <div>
@@ -250,7 +212,6 @@ const AFCONSBody = ({ client }) => (
 
 const UJWALABody = ({ client }) => (
   <div className="p-6 space-y-6">
-    {/* UJWALA Specific Layout */}
     <div className="bg-gradient-to-r from-orange-900/50 to-orange-800/50 rounded-lg p-4 border border-orange-500/30 shadow-2xl">
       <h4 className="text-xl font-bold text-white text-center mb-2">Affordable Housing Project</h4>
       <div className="flex justify-between">
@@ -324,6 +285,17 @@ const ClientBody = ({ client }) => {
   return <BodyComponent client={client} />;
 };
 
+// Marquee Components
+const MarqueeClient = ({ client, index }) => (
+  <div className="flex-shrink-0 bg-card/50 backdrop-blur-sm rounded-lg px-8 py-6 border border-border hover:border-primary hover:bg-card transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 mx-4">
+    <p className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors whitespace-nowrap">
+      {client}
+    </p>
+  </div>
+);
+
+
+
 const ClientsSection = () => {
   const sectionRef = useRef(null);
   const topClientsRef = useRef(null);
@@ -333,7 +305,7 @@ const ClientsSection = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isSwiping, setIsSwiping] = useState(false);
 
-  // Top featured clients with detailed information and logos
+  // Top featured clients
   const topClients = [
     { 
       name: 'L&T', 
@@ -392,9 +364,9 @@ const ClientsSection = () => {
     },
   ];
 
-  // Other clients grid
+  // Other clients
   const otherClients = [
-   "RR TULASI",
+    "RR TULASI",
     "CASAGRAND",
     "MAHARISHI",
     "TN POLICE HOUSING COR",
@@ -409,28 +381,113 @@ const ClientsSection = () => {
     "MURUGAPPA GROUP"
   ];
 
-  // Carousel navigation with animation
+  // Desktop Marquee Component - Split names between two rows
+const DesktopMarquee = () => {
+  // Split otherClients array into two halves
+  const half = Math.ceil(otherClients.length / 2);
+  const firstHalf = otherClients.slice(0, half);
+  const secondHalf = otherClients.slice(half);
+  
+  // Create marquee arrays for each row with duplicates
+  const desktopRow1Clients = [...firstHalf, ...firstHalf, ...firstHalf];
+  const desktopRow2Clients = [...secondHalf, ...secondHalf, ...secondHalf];
+
+  return (
+    <div className="marquee-container">
+      <h3 className="text-xl md:text-2xl font-semibold text-center mb-8 md:mb-12 text-foreground">
+        Other Valued Clients
+      </h3>
+      
+      {/* First Row - First half of names scrolling left */}
+      <div className="marquee-row relative overflow-hidden mb-6">
+        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        
+        <div className="flex animate-marquee-left">
+          {desktopRow1Clients.map((client, index) => (
+            <MarqueeClient key={`desktop-left-${index}`} client={client} index={index} />
+          ))}
+        </div>
+      </div>
+
+      {/* Second Row - Second half of names scrolling right */}
+      <div className="marquee-row relative overflow-hidden">
+        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        
+        <div className="flex animate-marquee-right">
+          {desktopRow2Clients.map((client, index) => (
+            <MarqueeClient key={`desktop-right-${index}`} client={client} index={index} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Mobile Marquee Component - Split names between two rows
+const MobileMarquee = () => {
+  // Split otherClients array into two halves
+  const half = Math.ceil(otherClients.length / 2);
+  const firstHalf = otherClients.slice(0, half);
+  const secondHalf = otherClients.slice(half);
+  
+  // Create marquee arrays for each row with duplicates
+  const mobileRow1Clients = [...firstHalf, ...firstHalf, ...firstHalf, ...firstHalf, ...firstHalf];
+  const mobileRow2Clients = [...secondHalf, ...secondHalf, ...secondHalf, ...secondHalf, ...secondHalf];
+
+  return (
+    <div className="marquee-container">
+      <h3 className="text-xl md:text-2xl font-semibold text-center mb-8 md:mb-12 text-foreground">
+        Other Valued Clients
+      </h3>
+      
+      {/* First Row - First half of names scrolling left */}
+      <div className="marquee-row relative overflow-hidden mb-4">
+        <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        
+        <div className="flex animate-marquee-left-mobile">
+          {mobileRow1Clients.map((client, index) => (
+            <MarqueeClient key={`mobile-left-${index}`} client={client} index={index} />
+          ))}
+        </div>
+      </div>
+
+      {/* Second Row - Second half of names scrolling right */}
+      <div className="marquee-row relative overflow-hidden">
+        <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        
+        <div className="flex animate-marquee-right-mobile">
+          {mobileRow2Clients.map((client, index) => (
+            <MarqueeClient key={`mobile-right-${index}`} client={client} index={index} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+  // Carousel navigation
   const navigateSlide = (direction) => {
     if (isAnimating) return;
     
     setIsAnimating(true);
     const carousel = carouselRef.current;
     
-    // Animate current slide out
     gsap.to(carousel, {
       x: direction === 'next' ? -50 : 50,
       opacity: 0,
       duration: 0.3,
       ease: 'power2.out',
       onComplete: () => {
-        // Update slide
         setCurrentSlide((prev) => 
           direction === 'next' 
             ? (prev === topClients.length - 1 ? 0 : prev + 1)
             : (prev === 0 ? topClients.length - 1 : prev - 1)
         );
         
-        // Reset position and animate in
         gsap.set(carousel, { 
           x: direction === 'next' ? 50 : -50,
           opacity: 0 
@@ -474,7 +531,6 @@ const ClientsSection = () => {
       currentX = e.touches[0].clientX;
       const diff = startX - currentX;
       
-      // Only consider it a swipe if movement is significant
       if (Math.abs(diff) > 15) {
         hasMoved = true;
         gsap.to(carousel, {
@@ -491,25 +547,22 @@ const ClientsSection = () => {
       const endTime = Date.now();
       const timeDiff = endTime - startTime;
       const diff = startX - currentX;
-      const swipeThreshold = 60; // Increased threshold
-      const tapTimeThreshold = 300; // Increased time threshold
+      const swipeThreshold = 60;
+      const tapTimeThreshold = 300;
       
-      // Reset position
       gsap.to(carousel, {
         x: 0,
         duration: 0.2,
         ease: 'power2.out'
       });
 
-      // Only navigate if it was a clear swipe gesture
       if (hasMoved && Math.abs(diff) > swipeThreshold) {
         if (diff > 0) {
-          nextSlide(); // Swipe left - next
+          nextSlide();
         } else {
-          prevSlide(); // Swipe right - previous
+          prevSlide();
         }
       } 
-      // Otherwise, if it was a quick tap with minimal movement, open details
       else if (!hasMoved || (timeDiff < tapTimeThreshold && Math.abs(diff) < 30)) {
         setSelectedClient(topClients[currentSlide]);
       }
@@ -531,7 +584,6 @@ const ClientsSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title animation
       gsap.from('.clients-title', {
         opacity: 0,
         y: 30,
@@ -542,9 +594,7 @@ const ClientsSection = () => {
         },
       });
 
-      // Desktop animations
       if (window.innerWidth >= 768) {
-        // Top clients diagonal reveal (desktop only)
         gsap.from('.top-client-card', {
           opacity: 0,
           x: (index) => (index % 2 === 0 ? -80 : 80),
@@ -559,7 +609,6 @@ const ClientsSection = () => {
           },
         });
       } else {
-        // Mobile animations - simpler fade up
         gsap.from('.top-client-card', {
           opacity: 0,
           y: 40,
@@ -573,19 +622,14 @@ const ClientsSection = () => {
         });
       }
 
-      // Other clients grid reveal
-      gsap.from('.other-client-card', {
+      gsap.from('.marquee-row', {
         opacity: 0,
-        scale: 0.8,
-        duration: 0.5,
-        stagger: {
-          amount: 1,
-          from: 'start',
-          grid: 'auto',
-        },
+        y: 20,
+        duration: 0.8,
+        stagger: 0.2,
         scrollTrigger: {
-          trigger: '.other-clients-grid',
-          start: 'top 80%',
+          trigger: '.marquee-container',
+          start: 'top 85%',
         },
       });
     }, sectionRef);
@@ -606,9 +650,8 @@ const ClientsSection = () => {
   }, [selectedClient]);
 
   return (
-    <section id="clients" ref={sectionRef} className="section-padding bg-background relative">
+    <section id="clients" ref={sectionRef} className="pt-20 bg-background relative">
       <div className="container mx-auto px-4 md:px-6">
-        {/* Section Title */}
         <h2 className="clients-title text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 text-gradient-gold">
           Our Top Clients
         </h2>
@@ -651,22 +694,16 @@ const ClientsSection = () => {
         {/* Top Featured Clients - Mobile Carousel */}
         <div className="mb-16 md:hidden">
           <div className="relative px-2">
-            {/* Carousel Container */}
             <div className="overflow-hidden rounded-2xl">
-              <div 
-                ref={carouselRef}
-                className="carousel-slide"
-              >
+              <div ref={carouselRef} className="carousel-slide">
                 <div
                   className="top-client-card bg-card rounded-2xl p-6 border-2 border-primary cursor-pointer h-full"
                   onClick={(e) => {
-                    // Only open details if not swiping
                     if (!isSwiping) {
                       setSelectedClient(topClients[currentSlide]);
                     }
                   }}
                 >
-                  {/* Client Logo and Basic Info */}
                   <div className="flex items-center space-x-4 mb-4">
                     <div className="logo-container bg-black rounded-lg shadow-sm overflow-hidden w-16 h-16 flex-shrink-0">
                       <img 
@@ -685,12 +722,10 @@ const ClientsSection = () => {
                     </div>
                   </div>
                   
-                  {/* Short Description */}
                   <p className="text-sm text-foreground/80 leading-relaxed mb-4 text-left">
                     {topClients[currentSlide].description.substring(0, 100)}...
                   </p>
 
-                  {/* Quick Stats */}
                   <div className="grid grid-cols-2 gap-3 text-center">
                     <div className="bg-muted/50 rounded-lg p-3">
                       <Calendar className="w-4 h-4 text-primary mx-auto mb-1" />
@@ -708,7 +743,6 @@ const ClientsSection = () => {
                     </div>
                   </div>
 
-                  {/* View Details CTA */}
                   <button 
                     className="w-full mt-4 bg-primary text-primary-foreground py-2 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors"
                     onClick={() => setSelectedClient(topClients[currentSlide])}
@@ -719,7 +753,6 @@ const ClientsSection = () => {
               </div>
             </div>
 
-            {/* Carousel Controls */}
             <div className="flex justify-between items-center mt-4 px-4">
               <button
                 onClick={prevSlide}
@@ -729,7 +762,6 @@ const ClientsSection = () => {
                 <ChevronLeft className="w-5 h-5" />
               </button>
               
-              {/* Dots Indicator */}
               <div className="flex space-x-2">
                 {topClients.map((_, index) => (
                   <button
@@ -752,14 +784,12 @@ const ClientsSection = () => {
               </button>
             </div>
 
-            {/* Slide Counter */}
             <div className="text-center mt-2">
               <span className="text-sm text-muted-foreground">
                 {currentSlide + 1} / {topClients.length}
               </span>
             </div>
 
-            {/* Swipe Hint */}
             <div className="text-center mt-2">
               <span className="text-xs text-muted-foreground">
                 Swipe to navigate
@@ -768,25 +798,12 @@ const ClientsSection = () => {
           </div>
         </div>
 
-        {/* Other Clients Grid */}
-        <div>
-          <h3 className="text-xl md:text-2xl font-semibold text-center mb-8 md:mb-12 text-foreground">
-            Other Valued Clients
-          </h3>
-          <div className="other-clients-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-w-7xl mx-auto">
-            {otherClients.map((client) => (
-              <div
-                key={client}
-                className="other-client-card group cursor-pointer"
-              >
-                <div className="bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border hover:border-primary hover:bg-card transition-all duration-300 h-full flex items-center justify-center text-center hover:shadow-lg hover:shadow-primary/20 hover:scale-105">
-                  <p className="text-sm font-medium text-foreground/80 group-hover:text-primary transition-colors">
-                    {client}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Other Clients - Different for Mobile and Desktop */}
+        <div className="hidden md:block">
+          <DesktopMarquee  />
+        </div>
+        <div className="md:hidden">
+          <MobileMarquee />
         </div>
       </div>
 
@@ -794,7 +811,6 @@ const ClientsSection = () => {
       {selectedClient && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="popup-content bg-card border-2 border-primary rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in fade-in-zoom-in">
-            {/* Header with Full Landscape Image */}
             <div 
               className="relative p-6 rounded-t-lg overflow-hidden min-h-[180px] flex items-end"
               style={{
@@ -829,15 +845,12 @@ const ClientsSection = () => {
               </div>
             </div>
 
-            {/* Dynamic Body Content */}
             <ClientBody client={selectedClient} />
 
             <div className="border-t border-border p-4 bg-muted/20">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">
-
-------something about working experience with the company ------
-
+                  ------something about working experience with the company ------
                 </span>
                 <button
                   onClick={() => setSelectedClient(null)}
@@ -850,6 +863,46 @@ const ClientsSection = () => {
           </div>
         </div>
       )}
+
+      {/* CSS animations for marquee */}
+      <style jsx>{`
+        @keyframes marquee-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-right {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+        @keyframes marquee-left-mobile {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-right-mobile {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+        
+        .animate-marquee-left {
+          animation: marquee-left 35s linear infinite;
+        }
+        .animate-marquee-right {
+          animation: marquee-right 35s linear infinite;
+        }
+        .animate-marquee-left-mobile {
+          animation: marquee-left-mobile 15s linear infinite;
+        }
+        .animate-marquee-right-mobile {
+          animation: marquee-right-mobile 15s linear infinite;
+        }
+        
+        .animate-marquee-left:hover,
+        .animate-marquee-right:hover,
+        .animate-marquee-left-mobile:hover,
+        .animate-marquee-right-mobile:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </section>
   );
 };
