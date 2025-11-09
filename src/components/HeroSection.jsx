@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { Button } from './ui/button';
 import heroImage from './assets/hero-demolition.jpg';
+import { motion } from 'framer-motion';
 
 const HeroSection = () => {
   const heroRef = useRef(null);
