@@ -1,23 +1,109 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Building2, Hammer, Truck, Shield, Recycle, Award, Home } from 'lucide-react';
+import { Building2, Hammer, Truck, Shield, Recycle, Award, Home, ChevronLeft, ChevronRight, Play, Pause, Check, Phone, Mail, MapPin, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { Button } from './ui/button';
-import { useNavigate } from 'react-router-dom'; // Add this import
+import { useNavigate } from 'react-router-dom';
+
+// Import your media files - update these paths to match your actual files
+import workImage1 from './assets/demo1.jpg';
+import workImage2 from './assets/demo2.jpg';
+import workImage3 from './assets/demo3.jpg';
+import workVideo1 from './assets/videos/demovideo1.mp4';
+import workVideo2 from './assets/videos/demovideo2.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ServicesPage = () => {
   const sectionRef = useRef(null);
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+
+  // Get current year for footer
+  const currentYear = new Date().getFullYear();
 
   // Reset scroll to top when Services page loads
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Our Work media data
+  const ourWorkMedia = [
+    {
+      type: 'image',
+      src: workImage1,
+      title: 'Commercial Demolition Project',
+      description: 'Large-scale industrial building demolition'
+    },
+    {
+      type: 'video',
+      src: workVideo1,
+      title: 'Residential Demolition Process',
+      description: 'Time-lapse of complete house demolition'
+    },
+    {
+      type: 'image',
+      src: workImage2,
+      title: 'Site Clearance',
+      description: 'Professional site preparation and clearance'
+    },
+    {
+      type: 'video',
+      src: workVideo2,
+      title: 'Controlled Implosion',
+      description: 'Expert controlled demolition techniques'
+    },
+    {
+      type: 'image',
+      src: workImage3,
+      title: 'Project Completion',
+      description: 'Finished site ready for new construction'
+    }
+  ];
+
+  // Auto-play slider
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === ourWorkMedia.length - 1 ? 0 : prev + 1));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isPlaying, ourWorkMedia.length]);
+
+  // Animation effects
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Our Work section animation
+      gsap.from('.our-work-title', {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: '.our-work-title',
+          start: 'top 80%',
+        },
+      });
+
+      gsap.from('.slider-container', {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        scrollTrigger: {
+          trigger: '.slider-container',
+          start: 'top 80%',
+        },
+      });
+
       // Title animation
       gsap.from('.services-title', {
         opacity: 0,
@@ -57,9 +143,58 @@ const ServicesPage = () => {
     return () => ctx.revert();
   }, []);
 
+  // Navigation functions
+  const nextSlide = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentSlide((prev) => (prev === ourWorkMedia.length - 1 ? 0 : prev + 1));
+    setTimeout(() => setIsAnimating(false), 300);
+  };
+
+  const prevSlide = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentSlide((prev) => (prev === 0 ? ourWorkMedia.length - 1 : prev - 1));
+    setTimeout(() => setIsAnimating(false), 300);
+  };
+
+  const goToSlide = (index) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentSlide(index);
+    setTimeout(() => setIsAnimating(false), 300);
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
   // Function to navigate back to home
   const goToHome = () => {
     navigate('/');
+  };
+
+  // Form functions
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission here
+    console.log('Form submitted:', formData);
+    // You can add your form submission logic here
+    alert('Thank you for your message! We will get back to you soon.');
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      message: ''
+    });
   };
 
   // Main services data
@@ -90,23 +225,11 @@ const ServicesPage = () => {
     }
   ];
 
-  // Additional services
+  // Additional services bullet points
   const additionalServices = [
-    {
-      icon: <Truck className="w-8 h-8" />,
-      title: 'services 1',
-      description: 'Complete site preparation and clearance services for new construction projects.'
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: 'services 2',
-      description: 'Expert safety assessments and consulting for demolition and construction sites.'
-    },
-    {
-      icon: <Recycle className="w-8 h-8" />,
-      title: 'services 3',
-      description: 'Environmentally responsible disposal and recycling of demolition materials.'
-    }
+    'Complete site preparation and clearance services',
+    'Expert safety assessments and consulting',
+    'Environmentally responsible disposal and recycling'
   ];
 
   // Stats data
@@ -118,10 +241,8 @@ const ServicesPage = () => {
   ];
 
   return (
-    <div className="py-20 min-h-screen bg-background">
-      {/* Hero Section */}
-  
-      {/* Back to Home Button - Added at the top */}
+    <div className="min-h-screen bg-background">
+      {/* Back to Home Button */}
       <div className="fixed top-5 left-5 z-50">
         <Button
           onClick={goToHome}
@@ -133,29 +254,98 @@ const ServicesPage = () => {
         </Button>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center">
-        <h1 className="services-title text-4xl md:text-6xl font-bold mb-4 text-white">
-          Professional
-          <span className="block bg-gradient-to-r from-orange-400 via-orange-500 to-yellow-400 bg-clip-text text-transparent mt-2">
-            Demolition Services
-          </span>
-        </h1>
-        
-        <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
-          Comprehensive demolition solutions with 20 years of excellence, precision, and unmatched safety standards
-        </p>
-      </div>
+      {/* Our Work Section - Same background as Our Core Services */}
+      <section className="pt-16 pb-16 bg-background">
+        <div className="container mx-auto px-4">
+          {/* Section Title */}
+          <h2 className="our-work-title text-4xl md:text-5xl font-bold text-center mb-4 text-gradient-gold">
+            OUR WORK
+          </h2>
+          <p className="text-center text-foreground text-lg mb-8 max-w-2xl mx-auto">
+            Witness our expertise in action through our project portfolio
+          </p>
 
-      {/* Main Services Section */}
+          {/* Slider Container - Reduced size */}
+          <div className="slider-container relative max-w-4xl mx-auto">
+            {/* Main Slider - Smaller size */}
+            <div className="relative bg-card/20 backdrop-blur-sm rounded-2xl overflow-hidden border-2 border-border shadow-2xl">
+              {/* Media Display - Reduced height */}
+              <div className="relative aspect-video w-full max-h-[400px]">
+                {ourWorkMedia[currentSlide].type === 'image' ? (
+                  <img
+                    src={ourWorkMedia[currentSlide].src}
+                    alt={ourWorkMedia[currentSlide].title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <video
+                    src={ourWorkMedia[currentSlide].src}
+                    className="w-full h-full object-cover"
+                    controls
+                    autoPlay={isPlaying}
+                    muted
+                    loop
+                  />
+                )}
+                
+                {/* Overlay Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                
+                {/* Media Info */}
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <h3 className="text-xl md:text-2xl font-bold mb-1 drop-shadow-lg">
+                    {ourWorkMedia[currentSlide].title}
+                  </h3>
+                  <p className="text-base text-gray-200 drop-shadow-md">
+                    {ourWorkMedia[currentSlide].description}
+                  </p>
+                </div>
+
+                {/* Play/Pause Button for Videos */}
+                {ourWorkMedia[currentSlide].type === 'video' && (
+                  <button
+                    onClick={togglePlayPause}
+                    className="absolute top-3 right-3 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full backdrop-blur-sm border border-white/20 transition-all duration-300"
+                  >
+                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                  </button>
+                )}
+              </div>
+
+              {/* Navigation Arrows */}
+              <button
+                onClick={prevSlide}
+                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full backdrop-blur-sm border border-white/20 transition-all duration-300 z-10"
+                disabled={isAnimating}
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              
+              <button
+                onClick={nextSlide}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full backdrop-blur-sm border border-white/20 transition-all duration-300 z-10"
+                disabled={isAnimating}
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Slide Indicator - Centered below slider */}
+            <div className="text-center mt-4">
+              <span className="text-sm text-foreground">
+                {currentSlide + 1} / {ourWorkMedia.length}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Services Section - Directly after Our Work */}
       <section ref={sectionRef} className="section-padding bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="services-title text-4xl md:text-5xl font-bold text-center mb-4 text-gradient-gold">
+          <h2 className="services-title text-4xl md:text-5xl font-bold text-center mb-16 text-gradient-gold">
             Our Core Services
           </h2>
-          <p className="text-center text-foreground text-lg mb-16 max-w-2xl mx-auto">
-            Specialized demolition services tailored to meet the unique requirements of each project
-          </p>
 
           {/* Main Services Grid */}
           <div className="services-grid grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-20">
@@ -203,35 +393,29 @@ const ServicesPage = () => {
             ))}
           </div>
 
-          {/* Additional Services */}
+          {/* Additional Services - Single Row with Bullet Points */}
           <div className="mb-20">
             <h3 className="text-3xl font-bold text-center mb-12 text-foreground">
               Additional Services
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {additionalServices.map((service, index) => (
-                <div
-                  key={service.title}
-                  className="service-card group"
-                >
-                  <div className="bg-card/30 backdrop-blur-sm rounded-lg p-6 border border-border hover:border-primary transition-all duration-300 text-center group hover:shadow-lg h-full">
-                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                      {service.icon}
+            <div className="bg-card/30 backdrop-blur-sm rounded-xl p-8 border border-border max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {additionalServices.map((service, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <Check className="w-3 h-3 text-white" />
                     </div>
-                    <h4 className="text-lg font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
-                      {service.title}
-                    </h4>
-                    <p className="text-foreground text-sm leading-relaxed">
-                      {service.description}
+                    <p className="text-foreground text-lg font-medium">
+                      {service}
                     </p>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
           {/* Stats Section */}
-          <div className="stats-section bg-gradient-to-br from-slate-900 to-orange-900/20 rounded-2xl p-8 border border-border">
+          <div className="stats-section bg-gradient-to-br from-slate-900 to-orange-900/20 rounded-2xl p-8 border border-border mb-20">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
               {stats.map((stat, index) => (
                 <div
@@ -248,34 +432,229 @@ const ServicesPage = () => {
               ))}
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-gradient-dark">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-12 border border-border">
-              <Award className="w-16 h-16 text-primary mx-auto mb-6" />
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
-                Ready to Start Your Project?
-              </h2>
-              <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-                Contact us today for a free consultation and competitive quote on your demolition project.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg"
-                  className="hover:scale-105 font-semibold px-8 py-6 text-lg bg-gradient-to-r from-orange-500 to-yellow-500 text-white border-0 hover:from-orange-600 hover:to-yellow-600"
-                >
-                  Get Free Quote
-                </Button>
-                
+          {/* Three Empty Boxes Section - Reduced spacing */}
+          <div className="mb-8 space-y-8 max-w-6xl mx-auto">
+            {/* Box 1 - Left */}
+            <div className="flex justify-start">
+              <div className="bg-card/50 backdrop-blur-sm rounded-xl p-8 border-2 border-border hover:border-primary transition-all duration-300 hover-glow h-48 w-2/3 flex items-center justify-center">
+                <div className="text-center text-foreground/60">
+                  {/* Empty box - ready for your content */}
+                </div>
+              </div>
+            </div>
+            
+            {/* Box 2 - Right */}
+            <div className="flex justify-end">
+              <div className="bg-card/50 backdrop-blur-sm rounded-xl p-8 border-2 border-border hover:border-primary transition-all duration-300 hover-glow h-48 w-2/3 flex items-center justify-center">
+                <div className="text-center text-foreground/60">
+                  {/* Empty box - ready for your content */}
+                </div>
+              </div>
+            </div>
+            
+            {/* Box 3 - Left */}
+            <div className="flex justify-start">
+              <div className="bg-card/50 backdrop-blur-sm rounded-xl p-8 border-2 border-border hover:border-primary transition-all duration-300 hover-glow h-48 w-2/3 flex items-center justify-center">
+                <div className="text-center text-foreground/60">
+                  {/* Empty box - ready for your content */}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Contact Form Section with Contact Info Boxes - Reduced top padding */}
+      <section className="pt-6 pb-16 bg-gradient-dark">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient-gold">
+              Contact Us
+            </h2>
+            <p className="text-lg text-foreground/90">
+              Ready to start your next project? Contact us today for a free consultation and quote.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Contact Form - Takes 2/3 of the row */}
+            <div className="lg:col-span-2 bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:border-primary transition-colors"
+                      placeholder="Enter your full name"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:border-primary transition-colors"
+                      placeholder="Enter your email"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+                    Phone Number
+                  </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:border-primary transition-colors"
+                      placeholder="Enter your phone number"
+                    />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                    Message *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows="5"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-gray-400 focus:outline-none focus:border-primary transition-colors resize-none"
+                    placeholder="Let us know about your demolition project - we'll provide a free quote and expert advice!"
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full hover:scale-105 font-semibold py-4 text-lg bg-gradient-to-r from-orange-500 to-yellow-500 text-white border-0 hover:from-orange-600 hover:to-yellow-600 transition-all duration-300"
+                >
+                  Send Message
+                </Button>
+              </form>
+            </div>
+
+            {/* Contact Info Boxes - Takes 1/3 of the row */}
+            <div className="space-y-6">
+              {/* Phone Box */}
+              <div className="bg-card/50 backdrop-blur-sm p-6 rounded-xl border border-border hover:border-primary transition-all duration-300 group hover-glow">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <Phone className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-lg font-semibold text-foreground">Phone</h3>
+                    <a 
+                      href="tel:‪+919841040740‬" 
+                      className="text-foreground hover:text-primary transition-colors text-sm"
+                    >
+                      ‪+91 9841040740‬
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Email Box */}
+              <div className="bg-card/50 backdrop-blur-sm p-6 rounded-xl border border-border hover:border-primary transition-all duration-300 group hover-glow">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <Mail className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-lg font-semibold text-foreground">Email</h3>
+                    <a 
+                      href="mailto:mohideenmsj@gmail.com" 
+                      className="text-foreground hover:text-primary transition-colors text-sm break-all"
+                    >
+                      mohideenmsj@gmail.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Location Box */}
+              <div className="bg-card/50 backdrop-blur-sm p-6 rounded-xl border border-border hover:border-primary transition-all duration-300 group hover-glow">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <MapPin className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-lg font-semibold text-foreground">Location</h3>
+                    <p className="text-foreground text-sm">
+                      No.57/34, Perambur High Road,<br />
+                      Jamaliya,<br />
+                      Chennai - 600 012
+                    </p>
+                    <a 
+                      href="https://maps.google.com/?q=No.57/34, Perambur High Road, Jamaliya, Chennai - 600 012"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:text-orange-400 transition-colors text-xs mt-1 inline-block"
+                    >
+                      View on Google Maps →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Footer Section */}
+      <footer className="bg-background py-8">
+        <div className="container mx-auto px-4">
+          <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-muted-foreground text-sm">
+              © {currentYear} MSJ Traders. All rights reserved.
+            </p>
+
+            <div className="flex items-center gap-4">
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full bg-muted/50 flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all duration-300"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full bg-muted/50 flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all duration-300"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full bg-muted/50 flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all duration-300"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
